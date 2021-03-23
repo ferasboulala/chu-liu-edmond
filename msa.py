@@ -48,7 +48,10 @@ def msa(V, E, r, w):
     Step 4 : If there is no cycle, return all the minimum edges pi(v)
     """
     if cycle_vertex is None:
-        return set([(pi[v],v) for v in pi.keys()])
+        result = set([(pi[v], v) for v in pi.keys()])
+        if len(result) != len(V) - 1:
+            return None
+        return result
     
     """
     Step 5 : Otherwise, all the vertices in the cycle must be identified
@@ -97,6 +100,8 @@ def msa(V, E, r, w):
     Step 7 : Recursively calling the algorithm again until no cycles are found
     """
     tree = msa(V_prime, E_prime, r, w_prime)
+    if tree is None:
+        return None
     
     """
     Step 8 : 
